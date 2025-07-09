@@ -132,13 +132,14 @@ async function crawlPage() {
       await wait(3000);
 
       const job = {
-        title: document.querySelector('[data-testid="jobsearch-JobInfoHeader-title"]')?.innerText?.trim() || "N/A",
+        title: (document.querySelector('[data-testid="jobsearch-JobInfoHeader-title"]')?.innerText?.trim().replace(/\s*- job post\s*$/i, '') || "N/A"),
         company: document.querySelector('[data-testid="inlineHeader-companyName"]')?.innerText?.trim() || "N/A",
         location: document.querySelector('[data-testid="inlineHeader-companyLocation"]')?.innerText?.trim() || "N/A",
         salary: document.querySelector('#salaryInfoAndJobType span')?.innerText?.trim() || "N/A",
         link: titleLink?.href || location.href,
         page: currentPage
       };
+
 
       allJobs.push(job);
       appendToTable(job);
